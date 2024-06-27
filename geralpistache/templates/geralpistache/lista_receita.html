@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Receitas</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style_2.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Receitas</h1>
+        {% for receita in receitas %}
+        <div class="receita">
+            <h2>{{ receita.nome }}</h2>
+            <h3>Ingredientes:</h3>
+            <ul>
+                {% for ingrediente, quantidade in receita.ingredientes %}
+                <li>{{ ingrediente }} - {{ quantidade }}</li>
+                {% endfor %}
+                <h5 type="datetime-local">Data: {{ receita.data}}</h5>
+            </ul>
+        </div>
+        {% endfor %}
+        <a href="{% url 'geralpistache:add' %}">Adicionar Receita</a>
+        <a href="{% url 'geralpistache:index' %}">Inicio</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Produtos e Receitas de Bolo</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles_1.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar Produtos e Receitas</h1>
+        
+        <div class="form-section">
+            <h2>Adicionar Novos Produtos</h2>
+            <form action="{% url 'geralpistache:add_produto' %}" method="post">
+                {% csrf_token %}
+                <label for="product-name">Nome do Produto:</label>
+                <input type="text" id="product-name" name="produto-nome" required>
+                
+                <label for="unidade">Unidade de Medida:</label>
+                <input type="text" id="unidade" name="unidade-medida" required>
+                
+                <label for="quantidade">Quantidade:</label>
+                <input type="text" id="quantidade" name="quantidade" required>
+                
+                <button type="submit">Adicionar Produto</button>
+            </form>
+            <a href="{% url 'geralpistache:lista_produto' %}" class="button">Lista Produtos</a>
+        </div>
+
+        <div class="form-section">
+            <h2>Adicionar Receita</h2>
+            <form action="{% url 'geralpistache:add_receita' %}" method="post">
+                {% csrf_token %}
+                <label for="recipe-name">Nome da Receita:</label>
+                <input type="text" id="recipe-name" name="receita-nome" required>
+                
+                <label for="data">Data:</label>
+                <input type="datetime-local" id="data" name="data" required>
+
+                <div id="ingredients-container">
+                    <div class="ingredient-entry">
+                        <label for="recipe-ingredient">Ingrediente:</label>
+                        <label for="recipe-quantity">Quantidade:</label>
+                        <input type="text" name="recipe-ingredients[]" required>
+                        <input type="text" name="recipe-quantities[]" required>
+                    </div>
+                </div>
+                
+                <button type="button" id="add-ingredient">Adicionar Ingrediente</button>
+                <button type="submit">Adicionar Receita</button>
+            </form>
+            <a href="{% url 'geralpistache:lista_receita' %}" class="button">Lista Receita</a>
+            <a href="{% url 'geralpistache:index' %}" class="button">Inicio</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addIngredientButton = document.getElementById('add-ingredient');
+            const ingredientsContainer = document.getElementById('ingredients-container');
+
+            addIngredientButton.addEventListener('click', function() {
+                const ingredientEntry = document.createElement('div');
+                ingredientEntry.className = 'ingredient-entry';
+                
+                const newIngredientLabel = document.createElement('label');
+                newIngredientLabel.textContent = 'Ingrediente:';
+                ingredientEntry.appendChild(newIngredientLabel);
+
+                const newIngredientInput = document.createElement('input');
+                newIngredientInput.type = 'text';
+                newIngredientInput.name = 'recipe-ingredients[]';
+                newIngredientInput.required = true;
+                ingredientEntry.appendChild(newIngredientInput);
+                
+                const newQuantityLabel = document.createElement('label');
+                newQuantityLabel.textContent = 'Quantidade:';
+                ingredientEntry.appendChild(newQuantityLabel);
+
+                const newQuantityInput = document.createElement('input');
+                newQuantityInput.type = 'text';
+                newQuantityInput.name = 'recipe-quantities[]';
+                newQuantityInput.required = true;
+                ingredientEntry.appendChild(newQuantityInput);
+
+                ingredientsContainer.appendChild(ingredientEntry);
+            });
+        });
+    </script>
+</body>
+</html>

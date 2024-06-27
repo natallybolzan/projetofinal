@@ -1,45 +1,22 @@
 from django.db import models
 
 class Produto(models.Model):
-    descricao = models.CharField(max_length=255)
+    nome = models.CharField(max_length=255)
     unidade_medida = models.CharField(max_length=50)
     quantidade = models.FloatField()
 
     def __str__(self):
-        return self.descricao
-
-
-class Compra(models.Model):
-    data = models.DateField()
-    fornecedor = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"Compra {self.id} de {self.fornecedor} em {self.data}"
-
-
-class CompraItem(models.Model):
-    compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    unidade_medida = models.CharField(max_length=50)
-    quantidade = models.FloatField()
-
-    def __str__(self):
-        return f"{self.quantidade} {self.unidade_medida} de {self.produto} na {self.compra}"
+        return self.nome
 
 class Receita(models.Model):
-    descricao = models.CharField(max_length=255)
+    nome_receita = models.CharField(max_length=255)
+    ingrediente_Nome = models.TextField()
+    qt_ingre = models.TextField()
+    data = models.DateField(auto_now_add=True, null=True, blank=True)
+
 
     def __str__(self):
-        return self.descricao
-
-class ReceitaItem(models.Model):
-    receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
-    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
-    unidade_medida = models.CharField(max_length=50)
-    quantidade = models.FloatField()
-
-    def __str__(self):
-        return f"{self.quantidade} {self.unidade_medida} de {self.produto} na {self.receita}"
+        return self.nome_receita,self.ingrediente_Nome
 
 class Lancamento(models.Model):
     receita = models.ForeignKey(Receita, on_delete=models.CASCADE)

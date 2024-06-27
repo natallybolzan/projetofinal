@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style_2.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="hero-image">
+            <div class="hero-text">
+                <h1>Bem-vindo ao Sistema de Gestão de Produtos e Receitas</h1>
+                <a href="{% url 'geralpistache:add' %}" class="button">Adicionar Produto</a>
+                <a href="{% url 'geralpistache:lista_produto' %}" class="button">Lista Produtos</a>
+                <a href="{% url 'geralpistache:lista_receita' %}" class="button">Lista Receita</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
